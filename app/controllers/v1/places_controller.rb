@@ -16,4 +16,14 @@ class V1::PlacesController < ApplicationController
             render json: Response::serverError(place.errors), status: 500
         end
     end
+
+    def destroy
+        place = Place.find(params[:id])
+
+        if place.destroy
+            render json: Response::success(place), status: 200
+        else
+            render json: Response::serverError(place.errors), status: 500
+        end
+    end
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :v1 do
-    resources :places, only: [:index, :create]
+    resources :places, only: [:index, :create, :destroy]
     resources :congestion_datas, only: [:create, :show, :update] do
       collection do
         get :serach
