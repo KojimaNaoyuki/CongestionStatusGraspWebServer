@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :places, only: [:index, :create]
-    resources :congestion_datas, only: [:show]
+    resources :congestion_datas, only: [:create, :show, :update] do
+      collection do
+        get :serach
+      end
+    end
   end
 end
