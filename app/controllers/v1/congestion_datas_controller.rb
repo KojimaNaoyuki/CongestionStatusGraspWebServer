@@ -26,7 +26,7 @@ class V1::CongestionDatasController < ApplicationController
     def update
         congestion_data = CongestionDatum.find(params[:id])
 
-        if congestion_data.update(number_of_people: params[:people])
+        if congestion_data.update(number_of_people: params[:people], density: get_density(params[:people], congestion_data.place_id))
             render json: Response::success(congestion_data), status: 200
         else
             render json: Response::serverError(congestion_data.errors), status: 500
@@ -38,4 +38,12 @@ class V1::CongestionDatasController < ApplicationController
         
         render json: Response::success(congestion_data), status: 200
     end
+
+    private
+
+        def get_density(number_of_people, place_id)
+            place = Place.find(place_id)
+
+            return place.area / number_of_people.to_i
+        end
 end
