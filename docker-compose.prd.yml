@@ -1,22 +1,14 @@
 version: "3"
 services:
-  api:
-    build: .
-    environment:
-      # rack-corsで使用する
-      ACCESS_CONTROL_ALLOW_ORIGIN: "localhost:$APACHE_PORT"
-    # 毎回 rm tmp/pids/server.pid するのも手間であるため、・事前に手元で/tmp/pids/server.pidを削除する
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p $CONTAINER_PORT -b '0.0.0.0'"
-    volumes:
-      - .:/app
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.prd
     ports:
-      - "$RAILS_PORT:$CONTAINER_PORT"
+      - 3001:3001
     depends_on:
       - db
-    # railsでpryする用
-    # true を指定することでコンテナを起動させ続けることができます。
     tty: true
-    # stdin_openとは標準入出力とエラー出力をコンテナに結びつける設定です。
     stdin_open: true
   db:
     image: mysql:5.7

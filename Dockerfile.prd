@@ -1,0 +1,37 @@
+FROM ubuntu:20.04
+
+RUN apt -y update \
+    && apt -y upgrade \
+    && apt-get install -y vim git
+
+# タイムゾーン設定
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+
+# ruby2.7.0 インストール
+RUN apt-get -y install ruby
+
+
+# apacheをセットアップ
+RUN apt-get install -y apache2 apache2-dev
+COPY ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY ./apache/ports.conf /etc/apache2/ports.conf
+
+
+# railsアプリセットアップ
+RUN apt-get install -y build-essential ruby-dev libmysqlclient-dev libcurl4-openssl-dev nodejs
+RUN mkdir /app \
+    && mkdir /app/api
+WORKDIR /app/api
+COPY ./Gemfile /app/api/Gemfile
+COPY ./Gemfile.lock /app/api/Gemfile.lock
+RUN gem install bundler
+COPY . /app/api
+RUN bundle install
+RUN rm -f tmp/pids/server.pid
+RUN chown -R www-data:www-data /app
+
+# passengerとapache関連
+RUN gem install passenger
+
+WORKDIR /app
