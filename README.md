@@ -1,3 +1,13 @@
+## 起動
+
+docker-compose.prd.yml ファイルを使用する
+フロントとは混ぜずに、api 単体で一つの apache を使用する
+フロントはフロントで単体で apache を使用してサーバーを立てるようにする
+
+```
+docker-compose.exe -f docker-compose.prd.yml コマンド
+```
+
 ## API 仕様
 
 REST の設計指針のエンドポイント名
