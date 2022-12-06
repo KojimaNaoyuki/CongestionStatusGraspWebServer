@@ -1,4 +1,4 @@
-class V1::CongestionDatumController < ApplicationController
+class V1::CongestionDataController < ApplicationController
     def show
         congestion_data = CongestionDatum.find(params[:id])
 
@@ -26,12 +26,12 @@ class V1::CongestionDatumController < ApplicationController
     def update
         congestion_data = CongestionDatum.find(params[:id])
 
-        place = Place.find(place_id)
+        place = Place.find(congestion_data.place_id)
 
         density = get_density(params[:people], place)
 
         # logを保存
-        CongestionDataLogs.create({
+        CongestionDataLog.create({
             number_of_people: params[:people],
             density: density,
             place_name: place.name

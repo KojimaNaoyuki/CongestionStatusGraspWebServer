@@ -5,7 +5,7 @@ docker-compose.prd.yml ファイルを使用する
 フロントはフロントで単体で apache を使用してサーバーを立てるようにする
 
 ```
-docker-compose.exe -f docker-compose.prd.yml up -d
+docker-compose -f docker-compose.prd.yml up -d
 ```
 
 立ち上げた後、apache の設定を行う [参考](https://qiita.com/NNKK1234/items/bcd88e030403215348a8)
