@@ -29,7 +29,9 @@ RUN gem install bundler
 COPY . /app/api
 RUN bundle install
 RUN rm -f tmp/pids/server.pid
-RUN chown -R www-data:www-data /app
+RUN chown -R www-data:www-data /app \
+    && chmod 777 /app/api/log/config/master.key \
+    && chmod 777 /app/api/log/development.log
 
 # passengerとapache関連
 RUN gem install passenger
