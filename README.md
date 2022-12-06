@@ -40,7 +40,7 @@ DELETE /v1/place/{place_id}
 POST /v1/congestion_data?place_id={計測地点ID}
 ```
 
-#### 人数を送信する(同時に密度の計算も行われる)
+#### 人数を送信する(同時に密度の計算も行われる ログも記録される)
 
 ```
 PUT /v1/congestion_data/{congestion_data_id}?people={現在の人数}
@@ -56,6 +56,12 @@ GET /v1/congestion_data/{congestion_data_id}
 
 ```
 GET /v1/congestion_data/serach?name={計測地点名}
+```
+
+#### 混雑状況ログを確認する
+
+```
+GET /v1/congestion_data/log
 ```
 
 ##### 備考

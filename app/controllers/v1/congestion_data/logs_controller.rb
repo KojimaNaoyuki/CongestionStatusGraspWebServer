@@ -1,4 +1,4 @@
-class V1::CongestionDatumLogsController < ApplicationController
+class V1::CongestionData::LogsController < ApplicationController
     def index
         congestion_data_log = CongestionDataLog.all()
 
