@@ -1,4 +1,4 @@
-class V1::CongestionDatasController < ApplicationController
+class V1::CongestionDatumController < ApplicationController
     def show
         congestion_data = CongestionDatum.find(params[:id])
 
@@ -26,7 +26,18 @@ class V1::CongestionDatasController < ApplicationController
     def update
         congestion_data = CongestionDatum.find(params[:id])
 
-        if congestion_data.update(number_of_people: params[:people], density: get_density(params[:people], congestion_data.place_id))
+        place = Place.find(place_id)
+
+        density = get_density(params[:people], place)
+
+        # logを保存
+        CongestionDataLogs.create({
+            number_of_people: params[:people],
+            density: density,
+            place_name: place.name
+        })
+
+        if congestion_data.update(number_of_people: params[:people], density: density)
             render json: Response::success(congestion_data), status: 200
         else
             render json: Response::serverError(congestion_data.errors), status: 500
@@ -41,9 +52,7 @@ class V1::CongestionDatasController < ApplicationController
 
     private
 
-        def get_density(number_of_people, place_id)
-            place = Place.find(place_id)
-
+        def get_density(number_of_people, place)
             return place.area / number_of_people.to_i
         end
 end

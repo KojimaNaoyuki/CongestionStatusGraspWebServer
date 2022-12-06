@@ -8,11 +8,13 @@ Rails.application.routes.draw do
 
     resources :places, only: [:index, :create, :destroy]
 
-    resources :congestion_datas, only: [:create, :show, :update] do
+    resources :congestion_datum, only: [:create, :show, :update] do
       collection do
         get :serach
       end
     end
+
+    resources :congestion_datum_logs, only: [:index]
 
   end
   

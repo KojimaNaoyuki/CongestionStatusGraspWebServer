@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_082710) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_083413) do
   create_table "congestion_data", charset: "utf8mb4", force: :cascade do |t|
     t.integer "number_of_people"
     t.float "density"
@@ -18,6 +18,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_082710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_congestion_data_on_place_id"
+  end
+
+  create_table "congestion_data_logs", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "number_of_people"
+    t.float "density"
+    t.string "place_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "places", charset: "utf8mb4", force: :cascade do |t|

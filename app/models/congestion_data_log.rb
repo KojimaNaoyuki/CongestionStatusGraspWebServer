@@ -1,0 +1,2 @@
+class CongestionDataLog < ApplicationRecord
+end
