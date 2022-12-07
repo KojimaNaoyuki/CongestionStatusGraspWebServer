@@ -3,7 +3,7 @@ class V1::CongestionDataController < ApplicationController
         congestion_data = CongestionDatum.find(params[:id])
 
         if congestion_data
-            render json: Response::success(congestion_data), status: 200
+            render json: Response::success([].append(congestion_data, congestion_data.place)), status: 200
         else
             render json: Response::notFound(), status: 404
         end

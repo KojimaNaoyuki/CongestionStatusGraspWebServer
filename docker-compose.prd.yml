@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prd
-    command: server service apache2 restart
+    command: service apache2 restart
     volumes:
       - .:/app/api
     ports:

@@ -8,10 +8,12 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     # docker-compose.ymlで指定した値かその値がNullの場合は、空文字を入れる（エラーにならないように）
-    origins ENV["ACCESS_CONTROL_ALLOW_ORIGIN"] || ""
+    # origins ENV["ACCESS_CONTROL_ALLOW_ORIGIN"] || ""
 
-    resource "*",
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    # resource "*",
+    #   headers: :any,
+    #   methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    origins '*'
+    resource '*', methods: :any, headers: :any
   end
 end
