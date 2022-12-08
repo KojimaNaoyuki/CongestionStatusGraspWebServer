@@ -53,6 +53,6 @@ class V1::CongestionDataController < ApplicationController
     private
 
         def get_density(number_of_people, place)
-            return place.area / number_of_people.to_i
+            return number_of_people.to_i / place.area
         end
 end
