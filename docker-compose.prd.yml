@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prd
-    command: service apache2 restart
     volumes:
       - .:/app/api
     ports:
@@ -13,6 +12,7 @@ services:
       - db
     tty: true
     stdin_open: true
+    restart: always
   db:
     image: mysql:5.7
     # DBのレコードが日本語だと文字化けするので、utf8をセットする
@@ -25,6 +25,7 @@ services:
       TZ: "Asia/Tokyo"
     ports:
       - "3306:3306"
+    restart: always
 # PC上にdb-volumeという名前でボリューム（データ領域）が作成される
 # コンテナを作り直したとしてもPC上に残るようにするために設定
 volumes:
