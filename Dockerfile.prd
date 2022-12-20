@@ -33,6 +33,3 @@ RUN chown -R www-data:www-data /app
 
 # passengerとapache関連
 RUN gem install passenger
-
-# ↓初回起動時はコメントアウトして実行しないようにする
-CMD ["service","apache2","restart"]
